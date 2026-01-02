@@ -1,0 +1,53 @@
+<div class="container mx-auto p-6">
+  <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Metabase Dashboard</h1>
+    <p class="text-gray-600 mb-6">Display Metabase questions in an embedded iframe</p>
+    
+    <div class="mb-6">
+      <label for="questionId" class="block text-sm font-medium text-gray-700 mb-2">
+        Question ID
+      </label>
+      <div class="flex gap-4">
+        <input
+          type="number"
+          id="questionId"
+          [value]="questionId()"
+          (input)="updateQuestionId($any($event.target).value)"
+          class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Enter question ID"
+        />
+        <button
+          (click)="updateQuestionId($any($event.target).value)"
+          class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+        >
+          Update
+        </button>
+      </div>
+      <p class="mt-2 text-sm text-gray-500">
+        Current question ID: {{ questionId() }}
+      </p>
+    </div>
+    
+    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4">
+      <p class="text-sm font-mono text-gray-700 break-all">
+        Embed URL: {{ iframeUrl() }}
+      </p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+    <div class="p-4 bg-gray-50 border-b border-gray-200">
+      <h2 class="text-xl font-semibold text-gray-800">Question Preview</h2>
+    </div>
+    <div class="p-4">
+      <div class="aspect-w-16 aspect-h-9">
+        <iframe
+          [src]="iframeUrl() | sanitizeUrl"
+          class="w-full h-96 border-0 rounded-lg"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</div>
